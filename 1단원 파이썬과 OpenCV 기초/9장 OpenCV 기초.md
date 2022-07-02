@@ -35,7 +35,7 @@ OpenCV 라이브러리는 사용 목적 자체가 영상을 다루는 만큼 "�
 객체(class) 기반의 **Mat** 자료형을 사용하며 Mat의 멤버 변수로 uchr* 타입의 data 포인터 변수가 있는데 이 변수는 Matrix의 Data를 
 가리키는 포인터 변수이다.           
 영상 데이터는 3가지 색상(붉은색, 초록색, 파란색) 채널로 구성되어 있으며, RGB 채널의 픽셀별 데이터는 다음 그림과 같이 붉은색, 초록색, 파란색이 반복되면서 저장된다.
-![KakaoTalk_20220702_215159075](https://user-images.githubusercontent.com/81175672/177001569-240ed9d6-6130-4086-b999-7483dfe57742.jpg)         
+![캡처123](https://user-images.githubusercontent.com/81175672/177003088-8cf7213e-804d-49a4-a24b-3e261a38ffcb.JPG)      
 
 OpenCV의 Mat 자료형 외에도 numpy array를 통해서 영상의 픽셀별 제어가 가능하다.                                
 **imread 함수**를 통해 반환되는 img는 numpy의 array 타입이며 array의 원소, 즉 픽셀을 제어하기 위해서는 **itemset**을 사용할 수 있다.
