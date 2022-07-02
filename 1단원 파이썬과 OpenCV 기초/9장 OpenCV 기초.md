@@ -26,8 +26,9 @@ cv2.namedWindow("image") # image라는 이름을 갖는 창 생성
 cv2.imshow("image", img) # image 창에 이미지 표시
 cv2.waitKey() # 아무키나 누르면
 ```
-**<실행 결과>**
-![캡처1](https://user-images.githubusercontent.com/81175672/177002367-939fb122-aac8-40e2-ad47-bfab2b956878.JPG)
+**<실행 결과>**                  
+<img src="https://user-images.githubusercontent.com/81175672/177002367-939fb122-aac8-40e2-ad47-bfab2b956878.JPG"  width="450" height="450"/>
+
 
 # 9.4 OpenCV 기본 자료형
 OpenCV 라이브러리는 사용 목적 자체가 영상을 다루는 만큼 "영상" 또는 "이미지"에 대한 자료형이 필요하다.     
@@ -70,5 +71,6 @@ cv.waitKey(0)
 [numpy.shape()에 대해서](https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=sw4r&logNo=221581585204)
 [imshow에 대해서](https://webnautes.tistory.com/796)
 
-**<실행 결과>**
-![캡처](https://user-images.githubusercontent.com/81175672/177002389-1266b9d9-3221-419a-81d7-cf76958e680f.JPG)
+**<실행 결과>**        
+<img src="[https://user-images.githubusercontent.com/81175672/177002367-939fb122-aac8-40e2-ad47-bfab2b956878.JPG](https://user-images.githubusercontent.com/81175672/177002389-1266b9d9-3221-419a-81d7-cf76958e680f.JPG)"  width="450" height="450"/>
+
