@@ -27,4 +27,27 @@ while cap.isOpened(): # cap이 열려있는 동안
 cap.release() # 영상 파일(카메라) 사용 종료
 cv2.destroyAllWindows() # 생성한 모든 윈도 제거
 ```
+# 10.2 마우스 이벤트 활용하기
+마우스 이벤트 활용을 위해 OpenCV에서는 **setMouseCallback 함수**를 제공하고 있다. 마우스 버튼 클릭, 드래그 등 마우스 입력 장치 관련 이벤트가 발생할 경우 처리할 함수를 
+CallBack 함수로 정의를 해두고, 이 함수를 지정하면 손쉽게 마우스 이벤트 활용이 가능하다.
+```py
+import cv2
+import numpy as np
 
+def draw_rectangle(event, x, y, flags, param):
+    if event == cv2.EVENT_LBUTTONDBLCLK: # 왼쪽 마우스를 더블 클릭하면
+        cv2.rectangle(img, (x,y), (x+50,y+50), (255,0,0), -1) # 해당 img의 위치에 사각형 그리기 ((B, G, R) 순), (두께 값이 -1이므로 도형 색 채우기) 
+
+# callback 함수
+img = np.zeros((512, 512, 3), np.uint8) # 가로 세로 512 픽셀이면서 3채널 모두 값이 0인 img 행렬 만들기 (np.uint8 -> 부호가 없는 정수)
+cv2.namedWindow('image')
+cv2.setMouseCallback('image', draw_rectangle) 
+
+while(1):
+    cv2.imshow('image', img)
+    if cv2.waitKey(1) & 0xFF == 27:
+        break
+
+cv2.destroyAllWindows()
+```
+[cv2.rectangle에 대해서](https://copycoding.tistory.com/146)         
