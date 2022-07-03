@@ -51,3 +51,5 @@ while(1):
 cv2.destroyAllWindows()
 ```
 [cv2.rectangle에 대해서](https://copycoding.tistory.com/146)         
+
+# 10.3 카메라 영상에 시간 출력
