@@ -134,4 +134,4 @@ cv2.destroyAllWindow()
 아날로그 시계 예제는 시스템의 현재 시각을 가져오는 시스템 함수의 용법과 선, 원을 그리는 그래픽 함수 그리고 좌표 변환에 대한 복합적인 학습이 가능하기 때문이다.         
 예제를 작성하기 전에 시계의 시침이 가리키는 위치가 (x, y)이고 시침의 길이가 1이라 하면 아래그림과 같이 **삼각함수**를 사용하여 그릴 수 있다. 예제에서는 시침의 이동량을 
 육십분법으로 계산하고 삼각함수에 입력할 때 호도법으로 변환하였다.
-<img src="https://user-images.githubusercontent.com/81175672/177108997-1696c9fc-b211-4226-903e-bf3846e430da.JPG"  width="450" height="450"/>
+<img src="https://user-images.githubusercontent.com/81175672/177108997-1696c9fc-b211-4226-903e-bf3846e430da.JPG"  width="500" height="500"/>
