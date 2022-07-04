@@ -216,7 +216,8 @@ cv2.destroyWindow('Clock')
 ```
 
 # 10.6 자유 낙하 운동
-**자유 낙하 운동**은 공기 저항과 모든 마찰을 무시하고 공
+**자유 낙하 운동**은 공기 저항과 모든 마찰을 무시하고 공중에 정지한 물체를 떨어뜨려 물체가 중력에 의해서만 낙하하는 등가속도 운동을 말한다.    
+중력에 의해서만 낙하하므로 가속도는 중력가속도와 같으며 초기 속도는 0이다.
 ```py
 import cv2
 from math import*
@@ -240,5 +241,92 @@ while(True):
         break
 
 cv2.destroyWindow('Free Fall')
+
+```
+
+# 10.7 포물선 운동
+이번 실습 예제는 비스듬히 던진 물체의 포물선 운동에 대한 프로그램을 만들어 보자.         
+물체를 던지는 각도를 θ라 할 때 x축 속도는 v<sub>x</sub> 이고, y축 이동속도는 v<sub>y</sub> 이다.              
+v<sub>0</sub>는 초기 이동속도, g는 중력 가속도, t는 시간이 된다.       
+```py
+import cv2
+from math import *
+import numpy as np
+
+init_Vel = float(input("초기 속도를 입력하세요 : "))
+init_Ang = float(input("초기 각도를 입력하세요 : "))
+cv2.namedWindow('Parabolic Motion')
+
+width = 960
+height = 960
+img = np.zeros((height, width,3), np.uint8)
+
+time = xpos = ypos = 0
+init_posx = 30
+init_posy = 250
+Vel_x = int(init_Vel*cos(init_Ang*pi/180.0))
+Vel_y = int(-1.0*init_Vel*sin(init_Ang*pi/180.0))
+
+while(True):
+    if (ypos+30) < height:
+
+        cv2.circle(img, (init_posx+xpos, init_posy+ypos), 10, (255,0,0), -1)
+        time+=0.2
+        Vel_y = int(Vel_y + 9.8*time)
+
+        xpos = int(xpos+Vel_x*time)
+        ypos = ypos + int(Vel_y*time) + int((9.8 * time **2)/2)
+        print(time, ':', xpos, ypos)
+
+    cv2.imshow('Parabolic Motion', img)
+
+    if cv2.waitKey(100) >= 0:
+        break
+
+cv2.destroyWindow('Parabolic Motion')
+
+```
+# 10.8 피보나치 수열 그래픽
+이번 실습에서는 피보나치 수열을 이용하여 황금비율을 가지는 그래픽을 그려보도록 하자.            
+곡선을 그리기 위해 OpenCV의 **ellipse 함수**를 사용한다.
+```py
+import cv2
+from math import *
+import numpy as np
+
+cv2.namedWindow('Pibonacci graphic')
+
+width = 960
+height = 960
+img = np.zeros((height,width,3), np.uint8)
+
+init_posx = 480
+init_posy = 480
+drawing_unit = 5
+idx, a, b = 0,0,1
+
+while a < 70:
+    cv2.imshow('Pibonacci graphic', img)
+    a,b = b, a+b
+    Begin_Ang = int(90*(idx%4))
+    End_Ang = int(90*(idx%4+1))
+    if Begin_Ang == 0:
+        init_posx -= (b-a) * drawing_unit
+    elif Begin_Ang == 90:
+        init_posy -= (b-a) * drawing_unit
+    elif Begin_Ang == 180:
+        init_posx += (b-a) * drawing_unit
+    elif Begin_Ang == 270:
+        init_posy += (b-a) * drawing_unit
+
+    print(idx, 'turn : ', 'Pibonacci number -', b)
+    cv2.ellipse(img, (init_posx, init_posy), (b*drawing_unit, b*drawing_unit),0, Begin_Ang,End_Ang, (0,255,0),2)
+
+    idx+=1
+
+while(True):
+    if cv2.waitKey(10) >= 0:
+        break
+cv2.destroyWIndow('Pibonacci graphic')
 
 ```
