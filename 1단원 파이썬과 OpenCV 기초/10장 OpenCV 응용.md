@@ -85,3 +85,47 @@ while(True):
 cam.release()
 cv2.destroyWindow('CAM_Window')
 ```
+[cv2.putText에 대해서](https://copycoding.tistory.com/151)                     
+
+# 10.4 TrackBar 예제
+윈도우 프로그래밍을 하다 보면 **트랙바 클래스**를 활용할 경우가 있다. 특히 포토샵과 같이 제한된 범위의 값을 조절하면서 
+이미지의 변화 상태를 직관적으로 확인이 필요할 경우 주로 사용된다. OpenCV에서는 이와 같은 트랙바를 매우 편하게 활용할 수 있도록 제공한다.     
+(cv2.createTrackbar -> 트랙바 값의 변화가 있을 때마다 콜백 함수를 지정하여 처리가 가능)          
+[cv2.createTrackbar, cv2.getTrackbarPos에 대해서](https://seokii.tistory.com/5)                
+
+```py
+import cv2
+import numpy as np
+
+def nothing():
+    pass
+
+cv2.namedWindow('RGB track bar') # 윈도우 생성
+
+# 트랙바를 생성하면서 생성될 윈도우를 지정한다. (콜백 함수는 따로 지정하지 않았음) 
+cv2.createTrackbar('Red color', 'RGB track bar', 0, 255, nothing)
+cv2.createTrackbar('Green color', 'RGB track bar', 0, 255, nothing)
+cv2.createTrackbar('Blue color', 'RGB track bar', 0, 255, nothing)
+
+# 트랙바 생성 시 초깃값
+cv2.setTrackbarPos('Red color', 'RGB track bar', 125)
+cv2.setTrackbarPos('Green color', 'RGB track bar', 125)
+cv2.setTrackbarPos('Blue color', 'RGB track bar', 125)
+
+img = np.zeros((512, 512, 3), np.uint8)
+
+while(1):
+    # 트랙바의 현재값 읽어오기
+    redval = cv2.getTrackbarPos('Red color', 'RGB track bar')
+    greenval = cv2.getTrackbarPos('Green color', 'RGB track bar')
+    blueval = cv2.getTrackbarPos('Blue color', 'RGB track bar')
+
+    cv2.rectangle(img, (0,0), (512, 512), (blueval, greenval, redval), -1)
+    cv2.imshow('RGB track bar', img)
+
+    if cv2.waitKey(1) & 0xFF == 27:
+        break
+
+
+cv2.destroyAllWindow()
+```
