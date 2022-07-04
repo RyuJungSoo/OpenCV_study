@@ -17,7 +17,7 @@ while cap.isOpened(): # cap이 열려있는 동안
     if success:
         cv2.imshow('image', frame) # image라는 창에 frame 보여주기
 
-        # 1초 지난 후에 다음 프레임을 보여줌
+        # 1ms 지난 후에 다음 프레임을 보여줌
         key = cv2.waitKey(1) & 0xFF # (0xFF를 & 연산한 이유는 운영체제가 64비트여서)
         if(key == 27): # 입력된 키 값이 esc(아스키 코드 27)이면
             break
