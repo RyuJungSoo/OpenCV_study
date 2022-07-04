@@ -327,6 +327,6 @@ while a < 70:
 while(True):
     if cv2.waitKey(10) >= 0:
         break
-cv2.destroyWIndow('Pibonacci graphic')
+cv2.destroyWindow('Pibonacci graphic')
 
 ```
