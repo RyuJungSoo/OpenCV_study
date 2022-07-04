@@ -53,3 +53,35 @@ cv2.destroyAllWindows()
 [cv2.rectangle에 대해서](https://copycoding.tistory.com/146)         
 
 # 10.3 카메라 영상에 시간 출력
+OpenCV에서는 외부 카메라 입력을 손쉽게 구현할 수 있다. OpenCV에서는 **VideoCapture 클래스**를 사용하여 WebCam 및 IP Camera를 연결할 수 있다.
+
+```py
+import cv2
+import time
+
+CAMERA_ID = 0
+cam = cv2.VideoCapture(CAMERA_ID) # 웹캠 켜기
+if cam.isOpened() == False: # cam이 열리지 않는 경우
+    print('Can not open the Camera(%d)' %(CAMERA_ID))
+    exit()
+
+cv2.namedWindow('CAM_Window')
+
+while(True):
+    ret, frame = cam.read()
+
+    now = time.localtime() # 현재 지역의 시간대를 now에 저장
+    str = "%d. %d. %d. %d:%d:%d" %(now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec) # 시간을 문자열로 변경
+
+    # 현재 frame에 str을 위치 (0, 100)에 cv2.FONT_HERSHEY_SCRIPT_SIMPLEX 폰트, 크기 1, 색상 (255,255,0)으로 띄우기 
+    cv2.putText(frame, str, (0,100), cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, 1, (255,255,0))
+
+    cv2.imshow('CAM_Window', frame)
+
+    
+    if cv2.waitKey(10) >= 0:
+        break
+
+cam.release()
+cv2.destroyWindow('CAM_Window')
+```
