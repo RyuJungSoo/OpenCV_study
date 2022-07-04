@@ -135,3 +135,81 @@ cv2.destroyAllWindow()
 예제를 작성하기 전에 시계의 시침이 가리키는 위치가 (x, y)이고 시침의 길이가 1이라 하면 아래그림과 같이 **삼각함수**를 사용하여 그릴 수 있다. 예제에서는 시침의 이동량을 
 육십분법으로 계산하고 삼각함수에 입력할 때 호도법으로 변환하였다.
 <img src="https://user-images.githubusercontent.com/81175672/177108997-1696c9fc-b211-4226-903e-bf3846e430da.JPG"  width="500" height="500"/>
+```py
+import cv2
+import time
+from math import *
+import numpy as np
+
+cv2.namedWindow('Clock')
+
+# img 행렬 만들기
+img = np.zeros((512,512,3), np.uint8)
+
+while(True):
+    # img에 중심이 (256, 256), 반지름이 250, 색깔이 (125, 125, 125)이고 속이 꽉 찬 원을 그리기
+    cv2.circle(img, (256,256), 250, (125,125,125), -1)
+
+    now = time.localtime()
+    hour = now.tm_hour
+    min = now.tm_min
+
+    # 12시인 경우 0시로 초기화
+    if hour > 12:
+        hour -= 12
+
+    # 시침과 분침이 0시부터 이루는 각을 계산
+    Ang_Min = min * 6 # 분침은 한 칸당 6도 (360/60)
+    Ang_Hour = hour*30+min*0.5 # 시침은 한 칸당 30도(360/12), 분침이 이동하는 동안 시침도 이동하므로 추가로 0.5도 이동해야 함(360/(12*60))
+
+
+    # 시침 표시(호도법 사용)
+    if(hour == 12 or 1 <= hour <= 2):
+        x_pos = int(150.0*cos((90.0-Ang_Hour)*3.141592/180))
+        y_pos = int(150.0*sin((90.0-Ang_Hour)*3.141592/180))
+        cv2.line(img, (256, 256), (256 + x_pos, 256 - y_pos), (0, 255, 0), 6)
+
+    elif(3 <= hour <= 5):
+        x_pos = int(150.0*cos((Ang_Hour-90.0)*3.141592/180))
+        y_pos = int(150.0*sin((Ang_Hour-90.0)*3.141592/180))
+        cv2.line(img, (256, 256), (256 + x_pos, 256 + y_pos), (0, 255, 0), 6)
+
+    elif(6 <= hour <= 8):
+        x_pos = int(150.0*sin((Ang_Hour-180.0)*3.141592/180))
+        y_pos = int(150.0*cos((Ang_Hour-180.0)*3.141592/180))
+        cv2.line(img, (256, 256), (256 - x_pos, 256 + y_pos), (0, 255, 0), 6)
+        
+    elif(9 <= hour <= 11):
+        x_pos = int(150.0*cos((Ang_Hour-270.0)*3.141592/180))
+        y_pos = int(150.0*sin((Ang_Hour-270.0)*3.141592/180))
+        cv2.line(img, (256, 256), (256 - x_pos, 256 - y_pos), (0, 255, 0), 6)
+
+
+    # 분침 표시(호도법 사용)
+    if(min == 00 or 1 <= min <= 14):
+        x_pos = int(200.0*cos((90.0-Ang_Min)*3.141592/180))
+        y_pos = int(200.0*sin((90.0-Ang_Min)*3.141592/180))
+        cv2.line(img, (256, 256), (256 + x_pos, 256 - y_pos), (255, 0, 0), 1)
+
+    elif(15 <= min <= 29):
+        x_pos = int(200.0*cos((Ang_Min-90.0)*3.141592/180))
+        y_pos = int(200.0*sin((Ang_Min-90.0)*3.141592/180))
+        cv2.line(img, (256, 256), (256 + x_pos, 256 + y_pos), (255, 0, 0), 1)
+
+    elif(30 <= min <= 44):
+        x_pos = int(200.0*sin((Ang_Min-180.0)*3.141592/180))
+        y_pos = int(200.0*cos((Ang_Min-180.0)*3.141592/180))
+        cv2.line(img, (256, 256), (256 - x_pos, 256 + y_pos), (255, 0, 0), 1)
+        
+    elif(45 <= min <= 59):
+        x_pos = int(200.0*cos((Ang_Min-270.0)*3.141592/180))
+        y_pos = int(200.0*sin((Ang_Min-270.0)*3.141592/180))
+        cv2.line(img, (256, 256), (256 - x_pos, 256 - y_pos), (255, 0, 0), 1)
+
+    cv2.imshow('Clock', img)
+    if cv2.waitKey(10) >= 0:
+        break
+
+
+cv2.destroyWindow('Clock')
+```
