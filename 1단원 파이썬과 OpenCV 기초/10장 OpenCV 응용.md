@@ -243,7 +243,7 @@ while(True):
 cv2.destroyWindow('Free Fall')
 
 ```
-
+[cv2.circle에 대해서](https://seokii.tistory.com/5)
 # 10.7 포물선 운동
 이번 실습 예제는 비스듬히 던진 물체의 포물선 운동에 대한 프로그램을 만들어 보자.         
 물체를 던지는 각도를 θ라 할 때 x축 속도는 v<sub>x</sub> 이고, y축 이동속도는 v<sub>y</sub> 이다.              
